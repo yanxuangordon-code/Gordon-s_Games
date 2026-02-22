@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Courier New', monospace;
-            background: #0a0a0a;
+            background: #050505; /* Slightly darker for better contrast */
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,6 +23,8 @@
             position: relative;
         }
 
+        /* --- BACKGROUND LAYERS --- */
+
         .stars {
             position: fixed;
             top: 0;
@@ -30,6 +32,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 0;
         }
 
         .star {
@@ -42,10 +45,11 @@
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
         }
 
+        /* Ambient Glow Orbs */
         body::before {
             content: '';
             position: fixed;
@@ -59,45 +63,109 @@
                 radial-gradient(circle at 40% 20%, rgba(255, 0, 150, 0.15) 0%, transparent 50%);
             animation: bgShift 20s ease infinite;
             pointer-events: none;
+            z-index: 1;
         }
 
         @keyframes bgShift {
-            0% { 
-                opacity: 0.6; 
-                transform: scale(1) rotate(0deg); 
-            }
-            33% { 
-                opacity: 0.8; 
-                transform: scale(1.1) rotate(120deg); 
-            }
-            66% { 
-                opacity: 0.7; 
-                transform: scale(0.95) rotate(240deg); 
-            }
-            100% { 
-                opacity: 0.6; 
-                transform: scale(1) rotate(360deg); 
-            }
+            0% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+            33% { opacity: 0.8; transform: scale(1.1) rotate(120deg); }
+            66% { opacity: 0.7; transform: scale(0.95) rotate(240deg); }
+            100% { opacity: 0.6; transform: scale(1) rotate(360deg); }
         }
 
-        body::after {
-            content: '';
+        /* Moving Grid */
+        .grid-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.03) 50%, transparent 100%);
-            animation: sweep 8s linear infinite;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
             pointer-events: none;
+            z-index: 2;
+            animation: gridMove 10s linear infinite, gridPulse 4s ease-in-out infinite alternate;
+            transform: perspective(500px) rotateX(20deg) scale(1.2);
+            opacity: 0.3;
         }
 
-        @keyframes sweep {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(20deg) scale(1.2) translate(0, 0); }
+            100% { transform: perspective(500px) rotateX(20deg) scale(1.2) translate(60px, 60px); }
         }
 
+        @keyframes gridPulse {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.4; }
+        }
+
+        /* Cyber Pulse Ring (New Animation) */
+        .cyber-pulse {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 10vw;
+            height: 10vw;
+            border: 2px solid rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: pulseRing 4s infinite;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .cyber-pulse::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255, 0, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulseRing 4s infinite 2s; /* Delayed start */
+        }
+
+        @keyframes pulseRing {
+            0% { width: 10vw; height: 10vw; opacity: 0; border-width: 5px; }
+            50% { opacity: 0.5; }
+            100% { width: 150vw; height: 150vw; opacity: 0; border-width: 0px; }
+        }
+
+        /* Data Rain (New Animation) */
+        .data-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            opacity: 0.15;
+        }
+
+        .data-char {
+            position: absolute;
+            color: #00ffff;
+            font-size: 14px;
+            font-weight: bold;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh); opacity: 0; }
+        }
+
+        /* Floating Particles */
         .particle {
             position: fixed;
             width: 3px;
@@ -107,49 +175,46 @@
             pointer-events: none;
             animation: float 15s infinite;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            z-index: 3;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px) scale(1);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px) scale(1); opacity: 0; }
         }
 
-        .grid-overlay {
+        /* Scanline */
+        .scanline {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 255, 255, 0.02) 50%
+            );
+            background-size: 100% 4px;
             pointer-events: none;
-            animation: gridMove 20s linear infinite;
+            z-index: 999;
+            animation: scan 8s linear infinite;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
         }
+
+        /* --- CONTENT STYLES --- */
 
         .container {
             max-width: 1200px;
             width: 100%;
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
         h1 {
@@ -180,12 +245,12 @@
         }
 
         .game-card {
-            background: rgba(20, 20, 20, 0.8);
+            background: rgba(10, 10, 10, 0.85);
             border: 2px solid #00ffff;
             border-radius: 10px;
             padding: 30px;
             box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.3),
+                0 0 20px rgba(0, 255, 255, 0.2),
                 inset 0 0 20px rgba(0, 255, 255, 0.05);
             transition: all 0.3s ease;
             display: flex;
@@ -194,34 +259,27 @@
             overflow: hidden;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
+            backdrop-filter: blur(5px);
         }
 
-        .game-card:nth-child(1) { animation-delay: 0.2s; }
-        .game-card:nth-child(2) { animation-delay: 0.4s; }
-        .game-card:nth-child(3) { animation-delay: 0.6s; }
-        .game-card:nth-child(4) { animation-delay: 0.8s; }
-        .game-card:nth-child(5) { animation-delay: 1.0s; }
-        .game-card:nth-child(6) { animation-delay: 1.2s; }
-        .game-card:nth-child(7) { animation-delay: 1.4s; }
+        /* Staggered Animation Delays */
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; }
+        .game-card:nth-child(6) { animation-delay: 0.6s; }
+        .game-card:nth-child(7) { animation-delay: 0.7s; }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .game-card::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
             background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
             border-radius: 10px;
             z-index: -1;
@@ -236,9 +294,7 @@
             100% { background-position: 100% 50%; }
         }
 
-        .game-card:hover::before {
-            opacity: 1;
-        }
+        .game-card:hover::before { opacity: 1; }
 
         .game-card:hover {
             transform: translateY(-10px) scale(1.02);
@@ -257,11 +313,11 @@
         }
 
         .game-description {
-            color: #aaaaaa;
+            color: #cccccc;
             line-height: 1.6;
             margin-bottom: 25px;
             flex-grow: 1;
-            text-shadow: 0 0 5px rgba(170, 170, 170, 0.5);
+            text-shadow: 0 0 2px rgba(200, 200, 200, 0.3);
         }
 
         .play-button {
@@ -280,24 +336,22 @@
             position: relative;
             overflow: hidden;
             text-shadow: 0 0 5px #00ffff;
+            display: inline-block;
         }
 
         .play-button::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
             border-radius: 50%;
-            background: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.4);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
 
         .play-button:hover::before {
-            width: 300px;
-            height: 300px;
+            width: 300px; height: 300px;
         }
 
         .play-button:hover {
@@ -307,10 +361,7 @@
             text-shadow: none;
         }
 
-        .play-button span {
-            position: relative;
-            z-index: 1;
-        }
+        .play-button span { position: relative; z-index: 1; }
 
         @keyframes glitch {
             0% { transform: translate(0); }
@@ -321,52 +372,36 @@
             100% { transform: translate(0); }
         }
 
-        h1:hover {
-            animation: glitch 0.3s infinite;
-        }
+        h1:hover { animation: glitch 0.3s infinite; }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-                letter-spacing: 3px;
-            }
-
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                transparent 50%,
-                rgba(0, 255, 255, 0.02) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 999;
-            animation: scan 8s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(100%); }
+            h1 { font-size: 2em; letter-spacing: 3px; }
+            .games-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <!-- Background Elements -->
     <div class="stars"></div>
     <div class="grid-overlay"></div>
+    <div class="cyber-pulse"></div>
+    <div class="data-rain" id="dataRain"></div>
     <div class="scanline"></div>
+
     <div class="container">
         <h1>🎮 GORDON'S GAMES 🎮</h1>
         <div class="games-grid">
-            <!-- 1. SANS FIGHT -->
+            
+            <!-- 1. MASKED FORCE -->
+            <div class="game-card">
+                <div class="game-title">MASKED FORCE</div>
+                <div class="game-description">
+                    Step into the arena as a masked warrior. Fast-paced action, intense combat, and slick movement mechanics await. Dodge, strike, and dominate in this adrenaline-fueled battle experience.
+                </div>
+                <a href="https://yanxuangordon-code.github.io/Masked_Force/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
+            </div>
+
+            <!-- 2. SANS FIGHT -->
             <div class="game-card">
                 <div class="game-title">SANS FIGHT</div>
                 <div class="game-description">
@@ -375,34 +410,7 @@
                 <a href="https://yanxuangordon-code.github.io/Sans_Fight/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
             </div>
 
-            <!-- 2. TOWER DEFENCE -->
-            <div class="game-card">
-                <div class="game-title">TOWER DEFENCE</div>
-                <div class="game-description">
-                    Strategically place towers and defend your base against waves of relentless enemies. Upgrade your defenses and adapt your strategy as the challenge intensifies in this tactical tower defense experience.
-                </div>
-                <a href="https://yanxuangordon-code.github.io/Tower_Defence-V1/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
-            </div>
-
-            <!-- 3. SUPER MARIO (new position) -->
-            <div class="game-card">
-                <div class="game-title">SUPER MARIO</div>
-                <div class="game-description">
-                    Jump, run, and stomp through classic platforming levels! Move with Arrow Keys or WASD, jump with Space/W/↑, fire with K (configurable), and restart with R. A nostalgic tribute to Mario’s greatest adventures.
-                </div>
-                <a href="https://yanxuangordon-code.github.io/Super_Mario/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
-            </div>
-
-            <!-- 4. FLAPPY WHOPPER -->
-            <div class="game-card">
-                <div class="game-title">FLAPPY WHOPPER</div>
-                <div class="game-description">
-                    Help the Whopper navigate through the pipes! Press SPACE or CLICK to flap. Avoid pipes and don't hit the ground. Each pipe passed = 1 point. The game gets faster as you score more!
-                </div>
-                <a href="https://yanxuangordon-code.github.io/flappy_whopper/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
-            </div>
-
-            <!-- 5. GORDON'S SMART BRAIN -->
+            <!-- 3. GORDON'S SMART BRAIN (Moved to 3rd) -->
             <div class="game-card">
                 <div class="game-title">GORDON'S<br>SMART BRAIN</div>
                 <div class="game-description">
@@ -411,7 +419,34 @@
                 <a href="https://yanxuangordon-code.github.io/Gordon_s_Smart_Brain/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
             </div>
 
-            <!-- 6. SECRET -->
+            <!-- 4. SUPER MARIO -->
+            <div class="game-card">
+                <div class="game-title">SUPER MARIO</div>
+                <div class="game-description">
+                    Jump, run, and stomp through classic platforming levels! Move with Arrow Keys or WASD, jump with Space/W/↑, fire with K (configurable), and restart with R. A nostalgic tribute to Mario's greatest adventures.
+                </div>
+                <a href="https://yanxuangordon-code.github.io/Super_Mario/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
+            </div>
+
+            <!-- 5. FLAPPY WHOPPER -->
+            <div class="game-card">
+                <div class="game-title">FLAPPY WHOPPER</div>
+                <div class="game-description">
+                    Help the Whopper navigate through the pipes! Press SPACE or CLICK to flap. Avoid pipes and don't hit the ground. Each pipe passed = 1 point. The game gets faster as you score more!
+                </div>
+                <a href="https://yanxuangordon-code.github.io/flappy_whopper/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
+            </div>
+
+            <!-- 6. TOWER DEFENCE (Moved to 6th) -->
+            <div class="game-card">
+                <div class="game-title">TOWER DEFENCE</div>
+                <div class="game-description">
+                    Strategically place towers and defend your base against waves of relentless enemies. Upgrade your defenses and adapt your strategy as the challenge intensifies in this tactical tower defense experience.
+                </div>
+                <a href="https://yanxuangordon-code.github.io/Tower_Defence-V1/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
+            </div>
+
+            <!-- 7. SECRET -->
             <div class="game-card">
                 <div class="game-title">SECRET</div>
                 <div class="game-description">
@@ -420,16 +455,9 @@
                 <a href="https://yanxuangordon-code.github.io/secret/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
             </div>
 
-            <!-- 7. MYSTERY GAME (moved to last) -->
-            <div class="game-card">
-                <div class="game-title">MYSTERY GAME</div>
-                <div class="game-description">
-                    Embark on an enigmatic adventure where every click reveals new surprises. Discover hidden secrets and test your skills in this mysterious experience that keeps you coming back.
-                </div>
-                <a href="https://yanxuangordon-code.github.io/-_-/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
-            </div>
         </div>
     </div>
+
     <script>
         // Generate twinkling stars
         const starsContainer = document.querySelector('.stars');
@@ -452,6 +480,35 @@
             particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
             document.body.appendChild(particle);
         }
+
+        // Generate Data Rain (New Feature)
+        const dataRainContainer = document.getElementById('dataRain');
+        const chars = '01XYZABCD<>{}[]/\\|+-*';
+        
+        function createDataChar() {
+            const char = document.createElement('div');
+            char.className = 'data-char';
+            char.innerText = chars[Math.floor(Math.random() * chars.length)];
+            char.style.left = Math.random() * 100 + '%';
+            char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            char.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            
+            // Randomize color slightly between cyan and purple
+            if(Math.random() > 0.8) {
+                char.style.color = '#ff00ff';
+                char.style.textShadow = '0 0 5px #ff00ff';
+            }
+
+            dataRainContainer.appendChild(char);
+
+            // Remove after animation ends to prevent memory leak
+            setTimeout(() => {
+                char.remove();
+            }, 5000);
+        }
+
+        // Spawn a new character every 50ms
+        setInterval(createDataChar, 50);
     </script>
 </body>
 </html>
