@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gordon's Games | Ultimate Edition</title>
+    <title>Gordon's Games | Bright Edition</title>
     <style>
         :root {
-            --neon-blue: #00ffff;
-            --neon-pink: #ff00ff;
-            --neon-purple: #bc13fe;
-            /* Brighter background base */
-            --bg-dark: #1a1a24; 
-            --card-bg: rgba(30, 30, 40, 0.8);
+            /* Bright Cyan/Blue Neon Palette */
+            --neon-blue: #00e0ff;
+            --neon-cyan: #00ffff;
+            --neon-teal: #00ffdd;
+            /* Brighter Blue Background */
+            --bg-start: #0a1a3a;
+            --bg-end: #1a3a6a;
+            --card-bg: rgba(15, 35, 65, 0.5);
         }
 
         * {
@@ -23,20 +25,20 @@
 
         body {
             font-family: 'Courier New', monospace;
-            background: var(--bg-dark);
+            /* Brighter Blue Gradient Background */
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Smaller outer margins */
             padding: 40px 20px; 
             overflow-x: hidden;
             position: relative;
         }
 
-        /* --- ENHANCED BACKGROUND LAYERS (Brighter) --- */
+        /* --- BRIGHTER BACKGROUND LAYERS --- */
 
-        /* 1. Deep Nebula Clouds (Brighter) */
+        /* 1. Bright Blue Nebula Clouds */
         .nebula {
             position: fixed;
             top: 0;
@@ -44,8 +46,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.4), transparent 30%),
-                radial-gradient(circle at 85% 30%, rgba(219, 39, 119, 0.3), transparent 30%);
+                radial-gradient(circle at 15% 50%, rgba(0, 80, 200, 0.5), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(0, 150, 220, 0.4), transparent 30%);
             filter: blur(60px);
             z-index: 0;
             animation: nebulaMove 20s ease-in-out infinite alternate;
@@ -56,7 +58,7 @@
             100% { transform: scale(1.3); opacity: 1; }
         }
 
-        /* 2. Vortex Grid (Brighter) */
+        /* 2. Bright Cyan Vortex Grid */
         .vortex-grid {
             position: fixed;
             top: 50%;
@@ -65,8 +67,8 @@
             height: 200vh;
             transform: translate(-50%, -50%) perspective(500px) rotateX(60deg);
             background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px);
+                linear-gradient(rgba(0, 224, 255, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 224, 255, 0.5) 1px, transparent 1px);
             background-size: 60px 60px;
             mask-image: radial-gradient(circle, black 10%, transparent 70%);
             -webkit-mask-image: radial-gradient(circle, black 10%, transparent 70%);
@@ -80,7 +82,7 @@
             100% { transform: translate(-50%, -50%) perspective(500px) rotateX(60deg) translateY(60px); }
         }
 
-        /* 3. Floating Geometric Shapes (Brighter) */
+        /* 3. Floating Geometric Shapes (Bright) */
         .geo-shapes {
             position: fixed;
             top: 0;
@@ -94,8 +96,9 @@
 
         .shape {
             position: absolute;
-            border: 2px solid rgba(0, 255, 255, 0.3);
+            border: 2px solid rgba(0, 224, 255, 0.7);
             animation: floatShape 20s infinite linear;
+            box-shadow: 0 0 12px rgba(0, 224, 255, 0.6);
         }
 
         .shape.square { width: 100px; height: 100px; }
@@ -103,14 +106,16 @@
             width: 0; height: 0; 
             border-left: 50px solid transparent;
             border-right: 50px solid transparent;
-            border-bottom: 100px solid rgba(255, 0, 255, 0.15);
+            border-bottom: 100px solid rgba(0, 180, 220, 0.4);
             background: transparent;
             border-top: none;
+            filter: drop-shadow(0 0 8px rgba(0, 180, 220, 0.6));
         }
         .shape.circle { 
             width: 80px; height: 80px; 
             border-radius: 50%; 
-            border-color: rgba(188, 19, 254, 0.3);
+            border-color: rgba(0, 220, 190, 0.7);
+            box-shadow: 0 0 12px rgba(0, 220, 190, 0.6);
         }
 
         @keyframes floatShape {
@@ -127,15 +132,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%2300ffff' fill-opacity='0.08' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%2300e0ff' fill-opacity='0.07' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             z-index: 3;
             pointer-events: none;
             animation: hexPulse 10s infinite;
         }
 
         @keyframes hexPulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
         }
 
         /* 5. Chromatic Aberration Overlay */
@@ -147,7 +152,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 4;
-            background: linear-gradient(45deg, rgba(255,0,0,0.05) 0%, transparent 50%, rgba(0,0,255,0.05) 100%);
+            background: linear-gradient(45deg, rgba(0,255,255,0.04) 0%, transparent 50%, rgba(0,150,255,0.04) 100%);
             mix-blend-mode: screen;
             animation: chromaticShift 5s infinite alternate;
         }
@@ -157,7 +162,7 @@
             100% { transform: translateX(2px); }
         }
 
-        /* 6. Stars & Particles (Brighter) */
+        /* 6. Stars & Particles (Bright) */
         .stars {
             position: fixed;
             top: 0;
@@ -175,23 +180,23 @@
             background: #fff;
             border-radius: 50%;
             animation: twinkle 3s infinite;
-            box-shadow: 0 0 5px #fff;
+            box-shadow: 0 0 8px #fff;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.6); }
         }
 
         .particle {
             position: fixed;
             width: 3px;
             height: 3px;
-            background: rgba(0, 255, 255, 0.8);
+            background: rgba(0, 224, 255, 0.9);
             border-radius: 50%;
             pointer-events: none;
             animation: float 15s infinite;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 1);
+            box-shadow: 0 0 15px rgba(0, 224, 255, 0.8);
             z-index: 6;
         }
 
@@ -211,16 +216,16 @@
             pointer-events: none;
             z-index: 7;
             overflow: hidden;
-            opacity: 0.3;
+            opacity: 0.5;
         }
 
         .data-char {
             position: absolute;
-            color: #00ffff;
+            color: #00e0ff;
             font-size: 14px;
             font-weight: bold;
             animation: fall linear infinite;
-            text-shadow: 0 0 5px #00ffff;
+            text-shadow: 0 0 8px #00e0ff;
         }
 
         @keyframes fall {
@@ -230,7 +235,7 @@
             100% { transform: translateY(110vh); opacity: 0; }
         }
 
-        /* 7. Scanlines (Brighter) */
+        /* 7. Scanlines (Visible) */
         .scanline {
             position: fixed;
             top: 0;
@@ -240,7 +245,7 @@
             background: linear-gradient(
                 to bottom,
                 transparent 50%,
-                rgba(0, 255, 255, 0.05) 50%
+                rgba(0, 224, 255, 0.04) 50%
             );
             background-size: 100% 4px;
             pointer-events: none;
@@ -257,7 +262,7 @@
             background: linear-gradient(
                 to right,
                 transparent 50%,
-                rgba(255, 0, 255, 0.05) 50%
+                rgba(0, 224, 255, 0.04) 50%
             );
             background-size: 4px 100%;
             pointer-events: none;
@@ -282,10 +287,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 30%, #000 100%);
+            background: radial-gradient(circle, transparent 35%, #051020 100%);
             pointer-events: none;
             z-index: 999;
-            opacity: 0.3; /* Much lighter vignette */
+            opacity: 0.3;
             animation: vignettePulse 4s ease-in-out infinite alternate;
         }
 
@@ -331,15 +336,14 @@
 
         h1 {
             text-align: center;
-            color: #fff; /* Brighter title */
+            color: #fff; 
             font-size: 3.5em;
-            /* Smaller margin */
             margin-bottom: 40px; 
             text-shadow: 
                 0 0 10px var(--neon-blue),
                 0 0 20px var(--neon-blue),
                 0 0 30px var(--neon-blue),
-                0 0 40px #0080ff;
+                0 0 40px #00a0ff;
             animation: flicker 3s infinite alternate;
             letter-spacing: 5px;
             position: relative;
@@ -357,23 +361,20 @@
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            /* Smaller gap between cards */
             gap: 30px; 
             padding: 20px;
             perspective: 1000px;
         }
 
-        /* ENHANCED CARD STYLES (Thicker Borders) */
+        /* CARD STYLES (Brighter Glass) */
         .game-card {
             background: var(--card-bg);
-            /* Thicker border */
-            border: 3px solid rgba(0, 255, 255, 0.6); 
+            border: 3px solid rgba(0, 224, 255, 0.7); 
             border-radius: 15px;
-            /* Smaller internal padding */
             padding: 30px; 
             box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.3),
-                inset 0 0 20px rgba(0, 255, 255, 0.1);
+                0 0 25px rgba(0, 224, 255, 0.4),
+                inset 0 0 20px rgba(0, 224, 255, 0.08);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
@@ -387,7 +388,7 @@
             transform-style: preserve-3d;
         }
 
-        /* Stagger floating animations */
+        /* Stagger floating animations for 8 cards (updated order) */
         .game-card:nth-child(1) { animation-delay: 0s, 0s; }
         .game-card:nth-child(2) { animation-delay: 0.1s, 1s; }
         .game-card:nth-child(3) { animation-delay: 0.2s, 2s; }
@@ -395,6 +396,7 @@
         .game-card:nth-child(5) { animation-delay: 0.4s, 4s; }
         .game-card:nth-child(6) { animation-delay: 0.5s, 5s; }
         .game-card:nth-child(7) { animation-delay: 0.6s, 0.5s; }
+        .game-card:nth-child(8) { animation-delay: 0.7s, 1.5s; }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(40px); }
@@ -406,7 +408,7 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* Holographic Shine Effect */
+        /* Holographic Shine Effect (Brighter) */
         .game-card::before {
             content: '';
             position: absolute;
@@ -417,9 +419,9 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 255, 255, 0.2),
-                rgba(0, 255, 255, 0.4),
-                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.3),
+                rgba(0, 224, 255, 0.4),
+                rgba(255, 255, 255, 0.3),
                 transparent
             );
             transition: 0.5s;
@@ -433,19 +435,19 @@
             transition: 0.7s;
         }
 
-        /* Neon Border Pulse on Hover */
+        /* Cyan Border Pulse on Hover (Brighter) */
         .game-card::after {
             content: '';
             position: absolute;
-            inset: -3px; /* Match border thickness */
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue));
+            inset: -3px; 
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-cyan), var(--neon-teal), var(--neon-blue));
             z-index: -1;
             border-radius: 16px;
             background-size: 400%;
             opacity: 0;
             transition: opacity 0.4s;
             animation: gradientShift 3s linear infinite;
-            filter: blur(15px);
+            filter: blur(12px);
         }
 
         .game-card:hover::after {
@@ -455,19 +457,19 @@
         .game-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 
-                0 0 40px rgba(0, 255, 255, 0.6),
-                0 0 80px rgba(188, 19, 254, 0.4);
-            border-color: #fff; /* White border on hover */
+                0 0 40px rgba(0, 224, 255, 0.6),
+                0 0 80px rgba(0, 180, 220, 0.5);
+            border-color: rgba(0, 224, 255, 0.9); 
             animation-play-state: paused;
-            background: rgba(40, 40, 50, 0.9);
+            background: rgba(20, 45, 75, 0.7);
         }
 
         .game-title {
             font-size: 1.8em;
-            color: #fff; /* Brighter title */
+            color: #fff; 
             margin-bottom: 20px; 
             font-weight: bold;
-            text-shadow: 0 0 15px var(--neon-blue);
+            text-shadow: 0 0 12px var(--neon-blue);
             letter-spacing: 2px;
             position: relative;
             display: inline-block;
@@ -477,29 +479,29 @@
         .game-card:hover .game-title {
             color: #fff;
             text-shadow: 
-                0 0 15px #fff,
-                0 0 30px var(--neon-blue),
-                0 0 45px var(--neon-blue);
+                0 0 12px #fff,
+                0 0 25px var(--neon-blue),
+                0 0 35px var(--neon-blue);
         }
 
         .game-description {
-            color: #e0e0e0; /* Brighter text */
+            color: #e5e5e5; 
             line-height: 1.6;
             margin-bottom: 30px; 
             flex-grow: 1;
-            text-shadow: 0 0 5px rgba(224, 224, 224, 0.5);
+            text-shadow: 0 0 4px rgba(220, 220, 220, 0.4);
             transition: color 0.3s;
         }
 
         .game-card:hover .game-description {
             color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
 
         .play-button {
             background: transparent;
             color: #fff;
-            border: 2px solid #fff;
+            border: 2px solid rgba(0, 224, 255, 0.7);
             padding: 15px 30px;
             font-size: 1.1em;
             border-radius: 5px;
@@ -511,7 +513,7 @@
             font-family: 'Courier New', monospace;
             position: relative;
             overflow: hidden;
-            text-shadow: 0 0 5px #fff;
+            text-shadow: 0 0 5px var(--neon-blue);
             display: inline-block;
             align-self: flex-start;
             z-index: 2;
@@ -523,7 +525,7 @@
             top: 50%; left: 50%;
             width: 0; height: 0;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(0, 224, 255, 0.35);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
@@ -533,11 +535,11 @@
         }
 
         .play-button:hover {
-            background: #fff;
+            background: var(--neon-blue);
             color: #000;
-            box-shadow: 0 0 30px #fff;
+            box-shadow: 0 0 25px var(--neon-blue);
             text-shadow: none;
-            border-color: #fff;
+            border-color: var(--neon-blue);
         }
 
         .play-button span { position: relative; z-index: 1; }
@@ -595,16 +597,16 @@
                 <a href="https://yanxuangordon-code.github.io/Gordon_s_Smart_Brain/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
             </div>
 
-            <!-- 4. SUPER MARIO -->
+            <!-- 4. TANK CLASH (Moved to 4th) -->
             <div class="game-card">
-                <div class="game-title" data-value="SUPER MARIO">SUPER MARIO</div>
+                <div class="game-title" data-value="TANK CLASH">TANK CLASH</div>
                 <div class="game-description">
-                    Jump, run, and stomp through classic platforming levels! Move with Arrow Keys or WASD, jump with Space/W/↑, fire with K (configurable), and restart with R. A nostalgic tribute to Mario's greatest adventures.
+                    Command your tank in explosive arena battles! Navigate the battlefield, aim with precision, and destroy enemy tanks. Upgrade your armor and firepower to dominate the clash zone.
                 </div>
-                <a href="https://yanxuangordon-code.github.io/Super_Mario/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
+                <a href="https://yanxuangordon-code.github.io/Tank_Clash/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
             </div>
 
-            <!-- 5. FLAPPY WHOPPER -->
+            <!-- 5. FLAPPY WHOPPER (Swapped with Mario) -->
             <div class="game-card">
                 <div class="game-title" data-value="FLAPPY WHOPPER">FLAPPY WHOPPER</div>
                 <div class="game-description">
@@ -613,7 +615,16 @@
                 <a href="https://yanxuangordon-code.github.io/flappy_whopper/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
             </div>
 
-            <!-- 6. TOWER DEFENCE -->
+            <!-- 6. SUPER MARIO (Swapped with Whopper) -->
+            <div class="game-card">
+                <div class="game-title" data-value="SUPER MARIO">SUPER MARIO</div>
+                <div class="game-description">
+                    Jump, run, and stomp through classic platforming levels! Move with Arrow Keys or WASD, jump with Space/W/↑, fire with K (configurable), and restart with R. A nostalgic tribute to Mario's greatest adventures.
+                </div>
+                <a href="https://yanxuangordon-code.github.io/Super_Mario/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
+            </div>
+
+            <!-- 7. TOWER DEFENCE -->
             <div class="game-card">
                 <div class="game-title" data-value="TOWER DEFENCE">TOWER DEFENCE</div>
                 <div class="game-description">
@@ -622,7 +633,7 @@
                 <a href="https://yanxuangordon-code.github.io/Tower_Defence-V1/" target="_blank" class="play-button"><span>PLAY NOW</span></a>
             </div>
 
-            <!-- 7. SECRET -->
+            <!-- 8. SECRET -->
             <div class="game-card">
                 <div class="game-title" data-value="SECRET">SECRET</div>
                 <div class="game-description">
@@ -733,8 +744,8 @@
             char.style.animationDuration = (Math.random() * 3 + 2) + 's';
             char.style.fontSize = (Math.random() * 10 + 10) + 'px';
             if(Math.random() > 0.8) {
-                char.style.color = '#ff00ff';
-                char.style.textShadow = '0 0 5px #ff00ff';
+                char.style.color = '#00ffff';
+                char.style.textShadow = '0 0 5px #00ffff';
             }
             dataRainContainer.appendChild(char);
             setTimeout(() => { char.remove(); }, 5000);
